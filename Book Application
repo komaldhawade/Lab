@@ -1,1 +1,212 @@
+package bookapplication;
+import java.util.Scanner;
+import java.util.*;
+public class Book {
+	
+	private int bookId;
+	private String bookName;
+	private double bookPrice;
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
+	public String getBookName() {
+		return bookName;
+	}
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
+	}
+	public double getBookPrice() {
+		return bookPrice;
+	}
+	public void setBookPrice(double bookPrice) {
+		this.bookPrice = bookPrice;
+	}
+	public Book(int bookId, String bookName, double bookprice) {
+		super();
+		this.bookId = bookId;
+		this.bookName = bookName;
+		this.bookPrice = bookPrice;
+	}
+	
+	
+}
 
+
+//package bookapplication;
+
+//import java.util.*;
+
+class BookMain {
+
+	public static void main(String[] args) {
+		BookService bService = new BookService();
+		Scanner sc = new Scanner(System.in);
+		
+		do {
+			System.out.println("Welcome to Book Management System");
+			System.out.println("Press:\n1) To Create Book\n"
+			+"2) To get all book details\n"
+			+"3) To get book details using id\n"
+			+"4) To get book details by name\n"
+			+"5) To update book details\n"
+			+"6) Exit");
+			System.out.println();
+			System.out.println("Enter your choice");
+			int choice = sc.nextInt();
+			switch(choice)
+			{
+			case 1:
+				bService.createBook();
+				System.out.println();
+				break;
+				
+			case 2:
+				bService.getAllBookDetails();
+				System.out.println();
+				break;
+				
+			case 3:
+				bService.getBookDetailsById();
+				System.out.println();
+				break;
+				
+			case 4:
+				bService.getBookDetailsByName();
+				System.out.println();
+				break;
+				
+			case 5:
+				bService.updateBook();
+				System.out.println();
+				break;
+				
+			case 6:
+				System.out.println("Thank you for visiting!!!");
+				System.exit(0);
+				break;
+	
+			}
+		}while(true);
+
+	}
+
+}
+
+
+
+//package bookapplication;
+
+//import java.util.*;
+
+class BookService {
+	
+	private static final String Name = null;
+	static Book book[] =new Book[10];
+	static Scanner sc = new Scanner(System.in);
+	static int index = 0;
+	
+	//create book method
+	public static void createBook()
+	{
+		System.out.println("Enter book id:");
+		int id = sc.nextInt();
+		
+		sc.nextLine();
+		
+		System.out.println("Enter book name:");
+		String bname = sc.nextLine();
+		
+		System.out.println("Enter book price:");
+	    double price = sc.nextDouble();
+	    
+	    book[index] = new Book(id, bname, price);
+	    index++;
+	    System.out.println("Book details created successfully!");	
+	}
+	
+	//get all book details method
+	public static void getAllBookDetails() {
+		for(int i=0;i<index;i++)
+		{
+			System.out.println("Book Id: "+book[i].getBookId());
+			System.out.println("Book Name: "+book[i].getBookName());
+			System.out.println("Book Price: "+book[i].getBookPrice());
+			System.out.println();
+		}
+	}
+	
+	public static void getBookDetailsById() {
+		System.out.println("Enter Id to search");
+		boolean flag = false;
+		int id = sc.nextInt();
+		for(int i=0;i<index;i++) {
+			if(book[i].getBookId()==id)
+			{
+				System.out.println("Book Id "+book[i].getBookId());
+				System.out.println("Book Name "+book[i].getBookName());
+				System.out.println("Book Price "+book[i].getBookPrice());
+				System.out.println();
+				flag = true;
+				break;
+			}
+		}
+		if(flag == false) {
+			System.out.println("Book not found!");
+		}
+	}
+	
+	public static void getBookDetailsByName() {
+		System.out.println("Enter name to search");
+		boolean flag = false;
+		sc.nextLine();
+		String id = sc.nextLine();
+		for(int i=0;i<index;i++) {
+			if(book[i].getBookName().equalsIgnoreCase(Name))
+			{
+				System.out.println("Book Id "+book[i].getBookId());
+				System.out.println("Book Name "+book[i].getBookName());
+				System.out.println("Book Price "+book[i].getBookPrice());
+				System.out.println();
+				flag = true;
+				break;
+			}
+		}
+		if(flag == false) {
+			System.out.println("Book not found!");
+		}
+		
+	}
+	
+	//to update book details
+	public static void updateBook()
+	{
+		System.out.println("Enter Id to search");
+		boolean flag = false;
+		int id = sc.nextInt();
+		for(int i=0;i<index;i++) {
+			if(id == book[i].getBookId())
+			{
+				sc.nextLine();
+                System.out.println("Enter the new book name:");
+                String bname =sc.nextLine();
+                
+                System.out.println("Enter the new price:");
+                double bprice = sc.nextDouble();
+                
+                book[i] = new Book(id, bname, bprice);
+                flag = true;
+                
+				}
+		}
+		if(flag==true)
+		{
+			System.out.println("Book details updated successfully!!");
+		}
+		else
+			System.out.println("Book with id "+id+" not found!!");
+	}
+
+}
